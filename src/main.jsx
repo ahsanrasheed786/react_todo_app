@@ -4,8 +4,8 @@ import App from "./App";
 import "./styles/app.scss";
 import { createContext } from "react";
 // http://localhost:4000/api/v1/users/login
-export const server = "http://localhost:4000/api/v1";
-
+// export const server = "http://localhost:4000/api/v1";
+export const server="https://todo-backend-iwmm.onrender.com"
 export const Context = createContext({ isAuthenticated: false });
 
 const AppWrapper = () => {
