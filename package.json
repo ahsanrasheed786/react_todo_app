@@ -1,6 +1,7 @@
 {
   "name": "react-app",
   "private": true,
+  "proxy": "https://todo-backend-iwmm.onrender.com",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
