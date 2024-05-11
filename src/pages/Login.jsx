@@ -29,11 +29,11 @@ const Login = () => {
         }
       );
 
-      toast.success(data.message);
+      toast.success("LogIn Successfully");
       setIsAuthenticated(true);
       setLoading(false);
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error('Wrong Email or Password');
       setLoading(false);
       setIsAuthenticated(false);
     }

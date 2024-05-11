@@ -6,8 +6,8 @@ import TodoItem from "../components/TodoItem";
 import { Navigate } from "react-router-dom";
 
 const Home = () => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [title, setTitle] = useState();
+  const [description, setDescription] = useState();
   const [loading, setLoading] = useState(false);
   const [tasks, setTasks] = useState([]);
   const [refresh, setRefresh] = useState(false);
@@ -16,15 +16,8 @@ const Home = () => {
 
   const updateHandler = async (id) => {
     try {
-      const { data } = await axios.put(
-        `${server}/task/${id}`,
-        {},
-        {
-          withCredentials: true,
-        }
-      );
-
-      toast.success(data.message);
+      const { data } = await axios.patch(`${server}/task/iscompleted/${id}`,{}, {withCredentials: true});
+      toast.success("Updated Successfully");
       setRefresh((prev) => !prev);
     } catch (error) {
       toast.error(error.response.data.message);
@@ -32,11 +25,10 @@ const Home = () => {
   };
   const deleteHandler = async (id) => {
     try {
-      const { data } = await axios.delete(`${server}/task/${id}`, {
+      const { data } = await axios.delete(`${server}/task/delete/${id}`,{
         withCredentials: true,
       });
-
-      toast.success(data.message);
+      toast.success("Deleted Successfully");
       setRefresh((prev) => !prev);
     } catch (error) {
       toast.error(error.response.data.message);
@@ -74,16 +66,16 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get(`${server}/task/my`, {
+      .get(`${server}/task/mytask`, {
         withCredentials: true,
       })
       .then((res) => {
-        setTasks(res.data.tasks);
+        setTasks(res.data.mytask);
       })
       .catch((e) => {
         toast.error(e.response.data.message);
       });
-  }, [refresh]);
+  }, [refresh,tasks,isAuthenticated]);
 
   if (!isAuthenticated) return <Navigate to={"/login"} />;
 
@@ -112,7 +104,7 @@ const Home = () => {
             </button>
           </form>
         </section>
-      </div>
+       </div>
 
       <section className="todosContainer">
         {tasks.map((i) => (
@@ -126,7 +118,7 @@ const Home = () => {
             key={i._id}
           />
         ))}
-      </section>
+      </section> 
     </div>
   );
 };

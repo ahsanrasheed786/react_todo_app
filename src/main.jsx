@@ -3,8 +3,8 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./styles/app.scss";
 import { createContext } from "react";
-
-export const server = "https://nodejs-todoapp.onrender.com/api/v1";
+// http://localhost:4000/api/v1/users/login
+export const server = "http://localhost:4000/api/v1";
 
 export const Context = createContext({ isAuthenticated: false });
 
